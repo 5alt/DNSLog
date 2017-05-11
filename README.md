@@ -46,6 +46,7 @@ DNSLog 基于 Django 框架编写，将 DNSServer 集成进 DNSLog 中，使用�
  ```
  $ cd dnslog
  $ pip install -r requirements.pip
+ $ python manage.py migrate
  ```
 3. 域名与公网 IP 准备
 	

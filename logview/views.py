@@ -6,7 +6,7 @@ from django.template import RequestContext
 from django.core.paginator import (
     Paginator, InvalidPage, EmptyPage, PageNotAnInteger)
 from django import forms
-from models import *
+from .models import *
 from dnslog import settings
 from django.contrib.auth import logout
 
