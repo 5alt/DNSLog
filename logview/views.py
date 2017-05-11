@@ -36,7 +36,7 @@ def index(request):
                         user=user[0], path=path, remote_addr=remote_addr,
                         http_user_agent=http_user_agent)
                     weblog.save()
-    return Http404()
+    raise Http404()
 
 
 class UserForm(forms.Form):

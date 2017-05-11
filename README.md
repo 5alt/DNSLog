@@ -47,20 +47,15 @@ DNSLog 基于 Django 框架编写，将 DNSServer 集成进 DNSLog 中，使用�
  $ cd dnslog
  $ pip install -r requirements.pip
  $ python manage.py migrate
+ $ python manage.py makemigrations logview
  ```
 3. 域名与公网 IP 准备
 	
-	搭建并使用 DNSLog，你需要拥有两个域名，一个域名作为 NS 服务器域名(例:a.com)，一个用于记录域名(例: b.com)。还需要有一个公网 IP 地址(如：1.1.1.1)
+	搭建并使用 DNSLog，你需要拥有一个域名，如 b.com。还需要有一个公网 IP 地址(如：1.1.1.1)
 	
 	**注意：b.com 的域名提供商需要支持自定义 NS 记录, a.com 则无要求。**
 	
-	1. 在 a.com 中设置两条 A 记录：
-
-		```
-		ns1.a.com  A 记录指向  1.1.1.1		
-		ns2.a.com  A 记录指向  1.1.1.1
-		```
-	2. 修改 b.com 的 NS 记录为 1 中设定的两个域名
+	修改 b.com （或者其子域名） 的 NS 记录为 公网 IP 地址
 
 		> 本步骤中，需要在域名提供商提供的页面进行设置，部分域名提供商只允许修改 NS 记录为已经认证过的 NS 地址。所以需要找一个支持修改 NS 记录为自己 NS 的域名提供商。
 	
@@ -86,6 +81,22 @@ DNSLog 基于 Django 框架编写，将 DNSServer 集成进 DNSLog 中，使用�
 	# 服务器外网地址
 	SERVER_IP = '1.1.1.1'
  ```
+
+5. 创建管理用户
+
+ 创建一个管理员用户
+
+ ```
+ python manage.py createsuperuser
+ ```
+ 
+ 如果忘记管理员密码，可执行如下命令重设管理员密码
+ 
+ ```
+ python manage.py changepassword username 
+ ```
+
+ 在管理后台的 LOGVIEW 中 Users 里可以添加前台普通用户。
 
 5. 启动服务
 
@@ -121,22 +132,9 @@ DNSLog 基于 Django 框架编写，将 DNSServer 集成进 DNSLog 中，使用�
 ### 站点管理
 
  启动服务成功后，访问 `http://b.com/admin/` 进入后台
- 
- 创建一个管理员用户
-
- ```
- python manage.py createsuperuser
- ```
- 
- 如果忘记管理员密码，可进入 dnslog 目录下，执行如下命令重设管理员密码
- 
- ```
- python manage.py changepassword admin 
- ```
 
 ### 普通用户
 
- 
  访问 `http://admin.b.com` (ADMIN_DOMAIN 指定的域名)，输入用户名密码登录。
  
  访问后会在下方看到自己的二级域名，例如 test.b.com，当请求 test.b.com 这个二级域名下的任意子域时，都会被记录，例如: demo.test.b.com。
