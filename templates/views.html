@@ -25,11 +25,12 @@
     <div class="container">
 
         <ul class="nav nav-tabs">
-
+          <ul class="nav navbar-nav navbar-left">
           <li role="presentation" {% ifequal logtype 'dns'%}class="active"{% endifequal%}><a href="/?logtype=dns">DNSLog</a></li>
-
+          </ul>
+          <ul class="nav navbar-nav navbar-left">
           <li role="presentation" {% ifequal logtype 'web'%}class="active"{% endifequal%}><a href="/?logtype=web">WebLog</a></li>
-
+          </ul>
           <ul class="nav navbar-nav navbar-right">
             <li><a href="/logout/">Logout</a></li>  
           </ul>
